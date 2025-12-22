@@ -98,9 +98,19 @@ class GroupChat:
     def run(self):
         history = "我們要規劃維也納二日行程，09:00 出發，18:00 前結束。\n"
         for r in range(self.rounds):
+            converged = False
             for agent in self.agents:
                 reply = agent.act(history)
                 history += f"{agent.name}: {reply}\n---\n"
+                print(f"{agent.name}: {reply}", flush=True)
+                
+                # 檢測 Reviewer 是否宣布收斂（無需進一步調整）
+                if agent.name == "Reviewer" and "無需進一步調整" in reply:
+                    converged = True
+            # 如果已收斂，提前終止
+            if converged:
+                print(f"\n✓ 行程已收斂，第 {r+1} 回合後提前終止。", flush=True)
+                break
         return history
 
 # ===== 5) 主程式 =====
