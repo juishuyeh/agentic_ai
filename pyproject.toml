@@ -1,0 +1,22 @@
+[project]
+name = "agent-house"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.126.0",
+    "langchain>=1.2.0",
+    "langchain-mcp-adapters>=0.2.1",
+    "langchain-openai>=1.1.6",
+    "prompt-toolkit>=3.0.52",
+    "python-dotenv>=1.2.1",
+    "rich>=14.2.0",
+]
+
+[dependency-groups]
+dev = [
+    "isort>=7.0.0",
+    "jupyterlab>=4.5.1",
+    "ruff>=0.14.10",
+]
