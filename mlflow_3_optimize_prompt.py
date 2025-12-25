@@ -8,7 +8,6 @@ from mlflow.genai import scorer, datasets
 
 load_dotenv()
 
-mlflow.set_tracking_uri("http://localhost:5001")
 mlflow.set_experiment("mlflow")
 
 MODEL='gemma-3-27b'
