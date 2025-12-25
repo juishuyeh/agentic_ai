@@ -9,7 +9,7 @@ from mlflow.genai import scorer, datasets
 load_dotenv()
 
 mlflow.set_tracking_uri("http://localhost:5001")
-mlflow.set_experiment("OpenAI Agents")
+mlflow.set_experiment("mlflow")
 
 MODEL='gemma-3-27b'
 PROMPTS = "prompts:/qa-agent-user-prompt@latest"

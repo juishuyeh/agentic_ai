@@ -1,8 +1,7 @@
 
-# complete_genai_workflow.py
+# mlflow_1_create_qa_dataset.py
 """
-MLflow GenAI 完整工作流程
-包含: 資料集建立 -> 評估 -> 提示詞優化
+MLflow GenAI 工作流程 - 階段 1: 建立 Q&A 評估資料集
 """
 
 import mlflow

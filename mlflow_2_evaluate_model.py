@@ -15,7 +15,6 @@ TEMPERATURE = 0.5
 DATASET_ID = 'd-c420717904b24382b6313a023802d3dd'
 
 mlflow.set_experiment(EXPERIMENT_NAME)
-client = openai.OpenAI()
 dataset = datasets.get_dataset(dataset_id=DATASET_ID)
 
 @scorer
