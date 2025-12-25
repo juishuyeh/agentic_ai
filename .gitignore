@@ -218,3 +218,4 @@ __marimo__/
 # Custom ignore rules
 main.ipynb
 uv.lock
+.DS_Store

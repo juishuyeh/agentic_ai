@@ -1,14 +1,17 @@
 [project]
-name = "agent-house"
+name = "agentic-ai"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "dspy>=3.0.4",
     "fastapi>=0.126.0",
+    "gepa>=0.0.17",
     "langchain>=1.2.0",
     "langchain-mcp-adapters>=0.2.1",
     "langchain-openai>=1.1.6",
+    "mlflow>=3.8.0",
     "prompt-toolkit>=3.0.52",
     "python-dotenv>=1.2.1",
     "rich>=14.2.0",
