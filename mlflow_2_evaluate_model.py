@@ -9,30 +9,33 @@ load_dotenv()
 
 
 EXPERIMENT_NAME = "mlflow"
-MODEL_NAME = "gemma-3-27b"
+MODEL_NAME = "gemma-3-12b"
+PREDICT_MODEL_NAME = "gemma-3-4b"
 PROMPTS = "prompts:/qa-agent-user-prompt@latest"
 TEMPERATURE = 0.5
-DATASET_ID = 'd-c420717904b24382b6313a023802d3dd'
+DATASET_ID = "d-c420717904b24382b6313a023802d3dd"
 
 mlflow.set_experiment(EXPERIMENT_NAME)
 dataset = datasets.get_dataset(dataset_id=DATASET_ID)
+
 
 @scorer
 def is_concise(outputs: str) -> bool:
     """檢查答案是否簡潔 (少於 5 個詞)"""
     return len(outputs.split()) <= 5
 
+
 @scorer
 def is_match_dataset_result(outputs: str, expectations: dict[str, Any]) -> bool:
     """
     檢查答案是否與資料集答案完全匹配
-    
+
     Args:
         outputs: 模型輸出
         expectations: 包含 expected_response 或其他期望值的字典
     """
     # 從 expectations 字典中取得 expected_response
-    expected_response = expectations.get('expected_response', '')
+    expected_response = expectations.get("expected_response", "")
     return outputs.strip() == expected_response.strip()
 
 
@@ -46,9 +49,11 @@ def predict_fn(question: str) -> str:
         messages = formatted_prompt
     else:
         messages = [{"role": "user", "content": formatted_prompt}]
-    
+
     response = openai.OpenAI().chat.completions.create(
-        model=MODEL_NAME, messages=messages, temperature=TEMPERATURE,
+        model=PREDICT_MODEL_NAME,
+        messages=messages,
+        temperature=TEMPERATURE,
     )
     return response.choices[0].message.content
 
@@ -58,12 +63,16 @@ def main():
     results = mlflow.genai.evaluate(
         data=dataset,
         predict_fn=predict_fn,
-        scorers = [
+        scorers=[
             Correctness(model=f"openai:/{MODEL_NAME}"),
-            Guidelines(name="is_traditional_chinese", guidelines="The answer must be in Traditional Chinese", model=f"openai:/{MODEL_NAME}"),
+            Guidelines(
+                name="is_traditional_chinese",
+                guidelines="The answer must be in Traditional Chinese",
+                model=f"openai:/{MODEL_NAME}",
+            ),
             is_concise,
             is_match_dataset_result,
-        ]
+        ],
     )
 
     print(results)

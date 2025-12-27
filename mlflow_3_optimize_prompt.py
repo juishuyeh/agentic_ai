@@ -10,10 +10,11 @@ load_dotenv()
 
 mlflow.set_experiment("mlflow")
 
-MODEL='gemma-3-27b'
+MODEL = "gemma-3-27b"
 PROMPTS = "prompts:/qa-agent-user-prompt@latest"
 TEMPERATURE = 0.5
-DATASET_ID = 'd-c420717904b24382b6313a023802d3dd'
+DATASET_ID = "d-c420717904b24382b6313a023802d3dd"
+
 
 # Step 1: Register your initial prompt
 # 建立 user prompt，如果已存在則不重複建立
@@ -30,8 +31,8 @@ Answer:""",
     return mlflow.genai.load_prompt(PROMPTS)
 
 
-
 # Step 2: Create a prediction function
+
 
 def predict_fn(question: str, **kwargs) -> str:
     # Load prompt from registry
@@ -45,7 +46,9 @@ def predict_fn(question: str, **kwargs) -> str:
         messages = [{"role": "user", "content": formatted_prompt}]
 
     response = openai.OpenAI().chat.completions.create(
-        model=MODEL, messages=messages, temperature=TEMPERATURE,
+        model=MODEL,
+        messages=messages,
+        temperature=TEMPERATURE,
     )
     return response.choices[0].message.content
 
@@ -57,7 +60,7 @@ train_data = datasets.get_dataset(dataset_id=DATASET_ID)
 # Step 4: Prepare scorer
 @scorer
 def exact_match(outputs: str, expectations: dict[str, Any]) -> bool:
-    expected_response = expectations.get('expected_response', '')
+    expected_response = expectations.get("expected_response", "")
     return outputs.strip() == expected_response.strip()
 
 
@@ -100,8 +103,8 @@ if __name__ == "__main__":
     print(f"Initial score: {result.initial_eval_score}")
     print(f"Final score: {result.final_eval_score}")
 
-
     ###### # You can also directly test the predict_fn with a question
     # predict_fn(
     #     question="What is MLflow",
     # )
+

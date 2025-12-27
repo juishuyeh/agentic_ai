@@ -1,4 +1,3 @@
-
 # mlflow_1_create_qa_dataset.py
 """
 MLflow GenAI 工作流程 - 階段 1: 建立 Q&A 評估資料集
@@ -22,9 +21,14 @@ DATASET_NAME = "qa_eval_dataset"
 
 mlflow.set_experiment(EXPERIMENT_NAME)
 
-def create_qa_dataset(experiment_ids: list[str], dataset_name: str, dataset_records: list[dict] | None = None):
+
+def create_qa_dataset(
+    experiment_ids: list[str],
+    dataset_name: str,
+    dataset_records: list[dict] | None = None,
+):
     """建立 Q&A 評估資料集"""
-    
+
     if dataset_records is None:
         dataset_records = [
             {
@@ -148,18 +152,20 @@ def create_qa_dataset(experiment_ids: list[str], dataset_name: str, dataset_reco
                 "expectations": {"expected_response": "約 1.5 億公里"},
             },
         ]
-    
+
     # 建立資料集
     dataset = datasets.create_dataset(
         experiment_id=experiment_ids,
         name=dataset_name,
     )
-    
+
     # 合併記錄
     dataset.merge_records(dataset_records)
-    
+
     print(f"✅ 資料集已建立: {dataset_name}")
     return dataset
 
+
 create_qa_dataset(experiment_ids=EXPERIMENT_IDS, dataset_name=DATASET_NAME)
-print("="*70)
+print("=" * 70)
+

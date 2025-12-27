@@ -12,10 +12,13 @@ load_dotenv()
 
 llm = init_chat_model("openai:gpt-oss-20b-local", temperature=0)
 
+
 class State(TypedDict):
     messages: Annotated[list, add_messages]
 
+
 graph_builder = StateGraph(State)
+
 
 # ============ 定義工具 ============
 # Define tools
@@ -29,11 +32,14 @@ def multiply(a: int, b: int) -> int:
     """
     return a * b
 
+
 tools = [multiply]
 llm_with_tools = llm.bind_tools(tools)
 
+
 def chatbot(state: State):
     return {"messages": [llm_with_tools.invoke(state["messages"])]}
+
 
 graph_builder.add_node("chatbot", chatbot)
 
@@ -49,10 +55,12 @@ graph_builder.add_edge("tools", "chatbot")
 graph_builder.add_edge(START, "chatbot")
 graph = graph_builder.compile()
 
+
 def stream_graph_updates(user_input: str):
     for event in graph.stream({"messages": [{"role": "user", "content": user_input}]}):
         for value in event.values():
             print("Assistant:", value["messages"][-1].content)
+
 
 while True:
     try:
@@ -68,3 +76,4 @@ while True:
         print("User: " + user_input)
         stream_graph_updates(user_input)
         break
+
