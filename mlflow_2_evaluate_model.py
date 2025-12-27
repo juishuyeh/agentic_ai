@@ -66,8 +66,8 @@ def main():
         scorers=[
             Correctness(model=f"openai:/{MODEL_NAME}"),
             Guidelines(
-                name="is_traditional_chinese",
-                guidelines="The answer must be in Traditional Chinese",
+                name="is_chinese",
+                guidelines="The answer must be in Chinese",
                 model=f"openai:/{MODEL_NAME}",
             ),
             is_concise,
