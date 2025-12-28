@@ -23,4 +23,13 @@ dev = [
     "isort>=7.0.0",
     "jupyterlab>=4.5.1",
     "ruff>=0.14.10",
+    "ty>=0.0.7",
+]
+
+[tool.typy]
+# 忽略某些規則以減少誤報
+disable = [
+    "invalid-argument-type",  # StateGraph 和其他第三方庫的類型推斷問題
+    "unknown-argument",       # ChatOpenAI 等庫的參數檢查
+    "possibly-missing-attribute",  # mlflow.genai 等動態屬性
 ]
