@@ -1,10 +1,10 @@
+from typing import Any
+
 import mlflow
 import openai
-from typing import Any
-from mlflow.genai.optimize import GepaPromptOptimizer
 from dotenv import load_dotenv
-from mlflow.genai import scorer, datasets
-
+from mlflow.genai import datasets, scorer
+from mlflow.genai.optimize import GepaPromptOptimizer
 
 load_dotenv()
 

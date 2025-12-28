@@ -1,9 +1,10 @@
 from typing import Any
-import openai
+
 import mlflow
-from mlflow.genai.scorers import Correctness, Guidelines
+import openai
 from dotenv import load_dotenv
-from mlflow.genai import scorer, datasets
+from mlflow.genai import datasets, scorer
+from mlflow.genai.scorers import Correctness, Guidelines
 
 load_dotenv()
 

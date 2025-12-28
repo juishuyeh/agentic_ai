@@ -6,6 +6,7 @@ from langchain.agents import create_agent
 from langchain.agents.structured_output import ToolStrategy
 from langchain.chat_models import init_chat_model
 from langchain.tools import ToolRuntime, tool
+from langchain_core.runnables import RunnableConfig
 from langgraph.checkpoint.memory import InMemorySaver
 from prompt_toolkit import prompt
 from prompt_toolkit.history import InMemoryHistory
@@ -113,7 +114,7 @@ def chat(user_message: str, config: dict, context: Context) -> str:
     """執行對話並返回回應"""
     response = agent.invoke(
         {"messages": [{"role": "user", "content": user_message}]},
-        config=config,
+        config=RunnableConfig(configurable=config),
         context=context
     )
     return extract_response(response)

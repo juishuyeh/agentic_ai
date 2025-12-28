@@ -4,8 +4,8 @@ MLflow GenAI 工作流程 - 階段 1: 建立 Q&A 評估資料集
 """
 
 import mlflow
-from mlflow.genai import datasets
 from dotenv import load_dotenv
+from mlflow.genai import datasets
 
 load_dotenv()
 
@@ -15,7 +15,7 @@ load_dotenv()
 
 EXPERIMENT_NAME = "mlflow"
 MODEL_NAME = "gpt-oss-20b-local"
-EXPERIMENT_IDS = ["3"]
+EXPERIMENT_IDS: list[str] = ["3"]
 DATASET_NAME = "qa_eval_dataset"
 
 

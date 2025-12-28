@@ -1,8 +1,8 @@
+from typing import TypedDict
+
 from dotenv import load_dotenv
-from typing import TypedDict, Annotated
-from langgraph.graph import StateGraph, END
-from langchain_openai import ChatOpenAI  # 外部資訊：非來源內容
 from langchain.chat_models import init_chat_model
+from langgraph.graph import END, StateGraph
 from rich import print as rprint
 
 load_dotenv()
