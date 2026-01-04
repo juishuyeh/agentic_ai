@@ -219,3 +219,5 @@ __marimo__/
 main.ipynb
 uv.lock
 .DS_Store
+
+settings.json
